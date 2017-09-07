@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class ProductTest < ActiveSupport::TestCase
+  fixtures :products
   test "product attributes must not be empty" do
     puts "run rake test:units this line is printed"
     product = Product.new
@@ -50,6 +51,16 @@ class ProductTest < ActiveSupport::TestCase
     bad.each do |image_name|
       assert new_product(image_name).invalid?, "#{image_name} shouldn’t be valid"
     end
+  end
+
+  test "product is not valid without a unique title" do
+    product = Product.new(
+      title: products(:ruby).title,
+      description: "yyy",
+      price: 1,
+      image_url: "fred.gif")
+    assert !product.save
+    assert_equal "has already been taken", product.errors[:title].join('; ')
   end
 
 end

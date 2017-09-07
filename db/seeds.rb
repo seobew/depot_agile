@@ -9,6 +9,16 @@
 Product.delete_all
 
 
+20.times do |i|
+  Product.create(
+      title: Faker::Name.name,
+      description: Faker::Lorem.sentence,
+      image_url: 'ruby.jpg',
+      price: Faker::Number.decimal(2)
+  )
+end
+
+=begin
 10.times do |i|
   Product.create(
     title: "Programming Ruby 1.#{i}",
@@ -22,7 +32,6 @@ Product.delete_all
   )
 end
 
-=begin
 Product.create(
   title: 'Programming Ruby 1.9',
   description:
